@@ -1,0 +1,431 @@
+/* ========================================
+   Variables
+   ======================================== */
+:root{
+    --fondo: #080c08;
+    --superficie: #0d1a0d;
+    --superficie-2: #122112;
+    --primario: #22c55e;
+    --primario-oscuro: #16a34a;
+    --peligro: #ef4444;
+    --peligro-suave: rgba(239, 68, 68, .08);
+    --texto: #e2f0e2;
+    --texto-suave: #6b8f6b;
+    --borde: #1a3a1a;
+    --sombra: 0 4px 24px rgba(0, 0, 0, .6);
+    --radio: .5em;
+}
+
+/* ========================================
+   Reset base
+   ======================================== */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background: var(--fondo);
+    background-image: radial-gradient(ellipse at 20% 50%, rgba(34, 197, 94, .04) 0%, transparent 60%);
+    color: var(--texto);
+    min-height: 100vh;
+}
+
+/* ========================================
+   Cabecera
+   ======================================== */
+.cabecera{
+    background: var(--superficie);
+    border-bottom: 1px solid var(--borde);
+    padding: 1em 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.cabecera-titulo h1{
+    font-size: 1.4rem;
+    color: var(--primario);
+}
+
+.subtitulo{
+    font-size: .8rem;
+    color: var(--texto-suave);
+}
+
+.cabecera-usuario{
+    color: var(--texto-suave);
+    font-size: .9rem;
+}
+
+/* ========================================
+   Contenedor principal
+   ======================================== */
+.contenedor{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2em 1.5em;
+}
+
+/* ========================================
+   Estadisticas
+   ======================================== */
+.grilla-stats{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1em;
+    margin-bottom: 1.8em;
+}
+
+.stat-card{
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 1.2em;
+    text-align: center;
+}
+
+.stat-card.peligro{
+    border-color: rgba(239, 68, 68, .3);
+}
+
+.stat-numero{
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primario);
+}
+
+.stat-card.peligro .stat-numero{
+    color: var(--peligro);
+}
+
+.stat-etiqueta{
+    display: block;
+    font-size: .82rem;
+    color: var(--texto-suave);
+    margin-top: .3em;
+}
+
+/* ========================================
+   Barra de acciones
+   ======================================== */
+.barra-acciones{
+    display: flex;
+    flex-wrap: wrap;
+    gap: .8em;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.filtros{
+    margin-left: auto;
+    display: flex;
+    gap: .5em;
+}
+
+/* ========================================
+   Botones
+   ======================================== */
+.btn{
+    padding: .6em 1.3em;
+    border: none;
+    border-radius: var(--radio);
+    font-size: .9rem;
+    cursor: pointer;
+    transition: opacity .2s, transform .1s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:active{
+    transform: scale(.97);
+}
+
+.btn-primario{
+    background: var(--primario);
+    color: #080c08;
+    font-weight: bold;
+}
+
+.btn-primario:hover{
+    background: var(--primario-oscuro);
+}
+
+.btn-secundario{
+    background: var(--superficie-2);
+    color: var(--texto);
+    border: 1px solid var(--borde);
+}
+
+.btn-secundario:hover{
+    border-color: var(--primario);
+    color: var(--primario);
+}
+
+.btn-filtro{
+    background: var(--superficie-2);
+    color: var(--texto-suave);
+    border: 1px solid var(--borde);
+    font-size: .82rem;
+}
+
+.btn-filtro.activo{
+    background: var(--primario);
+    color: #080c08;
+    border-color: var(--primario);
+    font-weight: bold;
+}
+
+.btn-marcar{
+    background: transparent;
+    color: var(--texto-suave);
+    border: 1px solid var(--borde);
+    font-size: .78rem;
+    padding: .3em .7em;
+}
+
+.btn-marcar:hover{
+    border-color: var(--peligro);
+    color: var(--peligro);
+}
+
+/* ========================================
+   Indicador de auto-escaneo
+   ======================================== */
+.auto-scan-info{
+    font-size: .8rem;
+    color: var(--texto-suave);
+    margin-bottom: 1em;
+    padding: .5em 1em;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    display: inline-block;
+}
+
+/* ========================================
+   Tabla de archivos
+   ======================================== */
+.tabla-contenedor{
+    overflow-x: auto;
+    margin-bottom: 2em;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .88rem;
+}
+
+thead{
+    background: var(--superficie-2);
+}
+
+th{
+    padding: .9em 1em;
+    text-align: left;
+    color: var(--primario);
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+td{
+    padding: .75em 1em;
+    border-bottom: 1px solid var(--borde);
+}
+
+/* fila peligrosa resaltada visualmente */
+.fila-peligrosa{
+    background: var(--peligro-suave);
+    border-left: 3px solid var(--peligro);
+}
+
+.fila-peligrosa td{
+    border-bottom-color: rgba(239, 68, 68, .15);
+}
+
+.sin-datos{
+    text-align: center;
+    color: var(--texto-suave);
+    padding: 2em;
+}
+
+/* ========================================
+   Badges de estado
+   ======================================== */
+.badge{
+    padding: .25em .7em;
+    border-radius: 2em;
+    font-size: .75rem;
+    font-weight: bold;
+}
+
+.badge-normal{
+    background: rgba(34, 197, 94, .1);
+    color: var(--primario);
+    border: 1px solid rgba(34, 197, 94, .3);
+}
+
+.badge-peligroso{
+    background: rgba(239, 68, 68, .1);
+    color: var(--peligro);
+    border: 1px solid rgba(239, 68, 68, .3);
+}
+
+/* ========================================
+   Reportes externos (contenido del modal)
+   ======================================== */
+.lista-reportes{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.reporte-item{
+    background: var(--superficie-2);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 1em;
+}
+
+.reporte-item h4{
+    color: var(--texto);
+    margin-bottom: .4em;
+    font-size: .9rem;
+}
+
+.reporte-item p{
+    color: var(--texto-suave);
+    font-size: .82rem;
+    line-height: 1.5;
+}
+
+/* ========================================
+   Modal de escaneo
+   ======================================== */
+.modal-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .2s ease;
+    z-index: 100;
+}
+
+.modal-overlay.activo{
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-caja{
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 2.2em 2.8em;
+    text-align: center;
+}
+
+.modal-caja-reportes{
+    position: relative;
+    width: 90%;
+    max-width: 560px;
+    max-height: 80vh;
+    overflow-y: auto;
+    text-align: left;
+    padding: 2em;
+}
+
+.modal-titulo{
+    color: var(--primario);
+    font-size: 1.1rem;
+    margin-bottom: 1em;
+    padding-bottom: .5em;
+    padding-right: 1.5em;
+    border-bottom: 1px solid var(--borde);
+}
+
+.modal-cerrar{
+    position: absolute;
+    top: .7em;
+    right: .8em;
+    background: transparent;
+    border: none;
+    color: var(--texto-suave);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: .2em .4em;
+}
+
+.modal-cerrar:hover{
+    color: var(--peligro);
+}
+
+.spinner{
+    width: 2.2em;
+    height: 2.2em;
+    margin: 0 auto 1em;
+    border: 3px solid var(--borde);
+    border-top-color: var(--primario);
+    border-radius: 50%;
+    animation: girar .8s linear infinite;
+}
+
+.modal-texto{
+    color: var(--texto);
+    font-size: .95rem;
+    letter-spacing: .03em;
+}
+
+.puntos-animados::after{
+    content: '';
+    animation: puntos 1.2s steps(4, end) infinite;
+}
+
+@keyframes girar{
+    to{ transform: rotate(360deg); }
+}
+
+@keyframes puntos{
+    0%   { content: ''; }
+    25%  { content: '.'; }
+    50%  { content: '..'; }
+    75%  { content: '...'; }
+    100% { content: ''; }
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+@media(max-width: 600px){
+    .cabecera{
+        flex-direction: column;
+        gap: .5em;
+        text-align: center;
+    }
+
+    .barra-acciones{
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filtros{
+        margin-left: 0;
+    }
+
+    .grilla-stats{
+        grid-template-columns: 1fr 1fr;
+    }
+}
